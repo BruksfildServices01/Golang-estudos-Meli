@@ -1,0 +1,644 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/jogadores": {
+            "get": {
+                "description": "Retorna todos os jogadores em memória",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jogadores"
+                ],
+                "summary": "Lista todos os jogadores",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Jogador"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um jogador vinculado a um time",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jogadores"
+                ],
+                "summary": "Cria um novo jogador",
+                "parameters": [
+                    {
+                        "description": "Dados do jogador",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Jogador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Jogador"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/jogadores/{id}": {
+            "get": {
+                "description": "Retorna um jogador específico",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jogadores"
+                ],
+                "summary": "Busca jogador por ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do jogador",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Jogador"
+                        }
+                    },
+                    "404": {
+                        "description": "jogador não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza dados de um jogador existente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "jogadores"
+                ],
+                "summary": "Atualiza um jogador",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do jogador",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do jogador",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Jogador"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Jogador"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "jogador não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um jogador pelo ID",
+                "tags": [
+                    "jogadores"
+                ],
+                "summary": "Deleta um jogador",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do jogador",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "jogador não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/times": {
+            "get": {
+                "description": "Retorna todos os times em memória",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "times"
+                ],
+                "summary": "Lista todos os times",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um time com nome e cidade",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "times"
+                ],
+                "summary": "Cria um novo time",
+                "parameters": [
+                    {
+                        "description": "Dados do time",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/times/{id}": {
+            "get": {
+                "description": "Retorna um time específico",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "times"
+                ],
+                "summary": "Busca time por ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do time",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "time não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza nome e cidade de um time existente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "times"
+                ],
+                "summary": "Atualiza um time",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do time",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do time",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "time não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um time pelo ID",
+                "tags": [
+                    "times"
+                ],
+                "summary": "Deleta um time",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do time",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "time não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/torneios": {
+            "get": {
+                "description": "Retorna todos os torneios em memória",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "torneios"
+                ],
+                "summary": "Lista todos os torneios",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Torneio"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um torneio com nome e ano",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "torneios"
+                ],
+                "summary": "Cria um novo torneio",
+                "parameters": [
+                    {
+                        "description": "Dados do torneio",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Torneio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Torneio"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/torneios/{id}": {
+            "get": {
+                "description": "Retorna um torneio específico",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "torneios"
+                ],
+                "summary": "Busca torneio por ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do torneio",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Torneio"
+                        }
+                    },
+                    "404": {
+                        "description": "torneio não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza nome e ano de um torneio existente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "torneios"
+                ],
+                "summary": "Atualiza um torneio",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do torneio",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do torneio",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Torneio"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Torneio"
+                        }
+                    },
+                    "400": {
+                        "description": "json inválido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "torneio não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um torneio pelo ID",
+                "tags": [
+                    "torneios"
+                ],
+                "summary": "Deleta um torneio",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID do torneio",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "torneio não encontrado",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "405": {
+                        "description": "método não permitido",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Jogador": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "idade": {
+                    "type": "integer"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "time_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Torneio": {
+            "type": "object",
+            "properties": {
+                "ano": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nome": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

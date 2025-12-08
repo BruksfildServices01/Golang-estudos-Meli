@@ -1,0 +1,424 @@
+definitions:
+  model.Jogador:
+    properties:
+      id:
+        type: integer
+      idade:
+        type: integer
+      nome:
+        type: string
+      time_id:
+        type: integer
+    type: object
+  model.Torneio:
+    properties:
+      ano:
+        type: integer
+      id:
+        type: integer
+      nome:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /jogadores:
+    get:
+      description: Retorna todos os jogadores em memória
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Jogador'
+            type: array
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Lista todos os jogadores
+      tags:
+      - jogadores
+    post:
+      consumes:
+      - application/json
+      description: Cria um jogador vinculado a um time
+      parameters:
+      - description: Dados do jogador
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Jogador'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Jogador'
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Cria um novo jogador
+      tags:
+      - jogadores
+  /jogadores/{id}:
+    delete:
+      description: Remove um jogador pelo ID
+      parameters:
+      - description: ID do jogador
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: jogador não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Deleta um jogador
+      tags:
+      - jogadores
+    get:
+      description: Retorna um jogador específico
+      parameters:
+      - description: ID do jogador
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Jogador'
+        "404":
+          description: jogador não encontrado
+          schema:
+            type: string
+      summary: Busca jogador por ID
+      tags:
+      - jogadores
+    put:
+      consumes:
+      - application/json
+      description: Atualiza dados de um jogador existente
+      parameters:
+      - description: ID do jogador
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Dados do jogador
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Jogador'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Jogador'
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "404":
+          description: jogador não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Atualiza um jogador
+      tags:
+      - jogadores
+  /times:
+    get:
+      description: Retorna todos os times em memória
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Lista todos os times
+      tags:
+      - times
+    post:
+      consumes:
+      - application/json
+      description: Cria um time com nome e cidade
+      parameters:
+      - description: Dados do time
+        in: body
+        name: body
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Cria um novo time
+      tags:
+      - times
+  /times/{id}:
+    delete:
+      description: Remove um time pelo ID
+      parameters:
+      - description: ID do time
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: time não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Deleta um time
+      tags:
+      - times
+    get:
+      description: Retorna um time específico
+      parameters:
+      - description: ID do time
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: time não encontrado
+          schema:
+            type: string
+      summary: Busca time por ID
+      tags:
+      - times
+    put:
+      consumes:
+      - application/json
+      description: Atualiza nome e cidade de um time existente
+      parameters:
+      - description: ID do time
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Dados do time
+        in: body
+        name: body
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "404":
+          description: time não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Atualiza um time
+      tags:
+      - times
+  /torneios:
+    get:
+      description: Retorna todos os torneios em memória
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Torneio'
+            type: array
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Lista todos os torneios
+      tags:
+      - torneios
+    post:
+      consumes:
+      - application/json
+      description: Cria um torneio com nome e ano
+      parameters:
+      - description: Dados do torneio
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Torneio'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Torneio'
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Cria um novo torneio
+      tags:
+      - torneios
+  /torneios/{id}:
+    delete:
+      description: Remove um torneio pelo ID
+      parameters:
+      - description: ID do torneio
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "404":
+          description: torneio não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Deleta um torneio
+      tags:
+      - torneios
+    get:
+      description: Retorna um torneio específico
+      parameters:
+      - description: ID do torneio
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Torneio'
+        "404":
+          description: torneio não encontrado
+          schema:
+            type: string
+      summary: Busca torneio por ID
+      tags:
+      - torneios
+    put:
+      consumes:
+      - application/json
+      description: Atualiza nome e ano de um torneio existente
+      parameters:
+      - description: ID do torneio
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Dados do torneio
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.Torneio'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Torneio'
+        "400":
+          description: json inválido
+          schema:
+            type: string
+        "404":
+          description: torneio não encontrado
+          schema:
+            type: string
+        "405":
+          description: método não permitido
+          schema:
+            type: string
+      summary: Atualiza um torneio
+      tags:
+      - torneios
+swagger: "2.0"
